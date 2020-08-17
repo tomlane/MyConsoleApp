@@ -70,10 +70,10 @@ jobs:
         run: dotnet build --no-restore MyConsoleApp.csproj
 
       - name: dotnet publish console
-        run: dotnet publish MyConsoleApp.csproj --configuration release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
+        run: dotnet publish MyConsoleApp.csproj --output ./ConsoleAppOutput --configuration release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }}
 
       - name: 7Zip server
-        run: 7z a -t7z -mx=9 MyConsoleApp.7z ./MyConsoleApp/bin/release/netcoreapp3.1/publish/
+        run: 7z a -t7z -mx=9 MyConsoleApp.7z ./ConsoleAppOutput
 
       - uses: actions/upload-artifact@v1
         with:
